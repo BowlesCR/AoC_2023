@@ -1,0 +1,37 @@
+name: Download input file
+on:
+  workflow_dispatch:
+  schedule:
+   - cron: "0 5 * 12 *"  # Might need to delay this a minute, but GHA startup time is likely longer than any time skew.
+
+permissions:
+  contents: write
+
+jobs:
+  download:
+    name: Fetch today's input file
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup env
+        run: echo "DAY=$(date +'%d')" >> $GITHUB_ENV
+
+      - name: Make dir if not exist
+        run: mkdir "Day_${DAY}" || /bin/true
+
+      - name: Get file
+        env:
+          SESSION_COOKIE: ${{ secrets.SESSION_COOKIE }}
+        run: |
+          curl "https://adventofcode.com/2023/day/$((DAY + 0))/input" --compressed -H "Cookie: ${SESSION_COOKIE}" > "Day_${DAY}/${DAY}.in"
+        # Funky eval around DAY to remove zero-padding.
+
+      - name: Commit changes
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -am "Input file for day ${DAY}"
+          git push
