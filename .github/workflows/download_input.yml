@@ -25,7 +25,7 @@ jobs:
         env:
           SESSION_COOKIE: ${{ secrets.SESSION_COOKIE }}
         run: |
-          curl "https://adventofcode.com/2023/day/$((10#DAY + 0))/input" --compressed -H "Cookie: ${SESSION_COOKIE}" > "Day_${DAY}/${DAY}.in"
+          curl "https://adventofcode.com/2023/day/$((10#$DAY + 0))/input" --compressed -H "Cookie: ${SESSION_COOKIE}" > "Day_${DAY}/${DAY}.in"
         # Funky eval around DAY to remove zero-padding.
 
       - name: Commit changes
