@@ -1,0 +1,17 @@
+name: Disable input file download
+on:
+  workflow_dispatch:
+  schedule:
+   - cron: "30 5 25 12 *"
+
+permissions:
+  actions: write
+
+jobs:
+  download:
+    name: Disable input file download
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disable workflow
+        run: |
+          gh workflow disable "download_input.yml"
