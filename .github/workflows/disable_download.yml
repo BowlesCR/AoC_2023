@@ -12,6 +12,9 @@ jobs:
     name: Disable input file download
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Disable workflow
         env:
           GH_TOKEN: ${{ github.token }}
