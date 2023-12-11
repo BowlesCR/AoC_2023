@@ -13,5 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Disable workflow
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh workflow disable "download_input.yml"
