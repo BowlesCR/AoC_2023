@@ -33,26 +33,26 @@ class Maze:
         dirs = set()
         for p in paths:
             if p[0] - self.start_pos[0] == -1:
-                dirs.add('N')
+                dirs.add("N")
             elif p[0] - self.start_pos[0] == 1:
-                dirs.add('S')
+                dirs.add("S")
             elif p[1] - self.start_pos[1] == -1:
-                dirs.add('W')
+                dirs.add("W")
             elif p[1] - self.start_pos[1] == 1:
-                dirs.add('E')
+                dirs.add("E")
 
-        if dirs == {'N', 'S'}:
-            self.grid[self.start_pos[0]][self.start_pos[1]] = '|'
-        elif dirs == {'E', 'W'}:
-            self.grid[self.start_pos[0]][self.start_pos[1]] = '-'
-        elif dirs == {'N', 'E'}:
-            self.grid[self.start_pos[0]][self.start_pos[1]] = 'L'
-        elif dirs == {'N', 'W'}:
-            self.grid[self.start_pos[0]][self.start_pos[1]] = 'J'
-        elif dirs == {'S', 'W'}:
-            self.grid[self.start_pos[0]][self.start_pos[1]] = '7'
-        elif dirs == {'S', 'E'}:
-            self.grid[self.start_pos[0]][self.start_pos[1]] = 'F'
+        if dirs == {"N", "S"}:
+            self.grid[self.start_pos[0]][self.start_pos[1]] = "|"
+        elif dirs == {"E", "W"}:
+            self.grid[self.start_pos[0]][self.start_pos[1]] = "-"
+        elif dirs == {"N", "E"}:
+            self.grid[self.start_pos[0]][self.start_pos[1]] = "L"
+        elif dirs == {"N", "W"}:
+            self.grid[self.start_pos[0]][self.start_pos[1]] = "J"
+        elif dirs == {"S", "W"}:
+            self.grid[self.start_pos[0]][self.start_pos[1]] = "7"
+        elif dirs == {"S", "E"}:
+            self.grid[self.start_pos[0]][self.start_pos[1]] = "F"
         else:
             assert False
 
@@ -130,6 +130,7 @@ def main():
     del grid
 
     print(max(*maze.dist.values()))
+
 
 if __name__ == "__main__":
     main()
