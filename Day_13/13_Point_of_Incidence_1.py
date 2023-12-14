@@ -23,14 +23,6 @@ def main():
     print(total_left + 100 * total_top)
 
 
-def slice_vert(grid, start=0, stop=None, step=1):
-    # if stop is None:
-    #     stop = len(grid[0])
-
-    for r in range(len(grid)):
-        yield grid[r][start:stop:step]
-
-
 def solve(grid: list[list[str]]):
     for r in range(len(grid) - 1):
         if all([pair[0] == pair[1] for pair in zip(grid[r::-1], grid[r + 1 :])]):
