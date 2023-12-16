@@ -1,7 +1,6 @@
-from collections import deque
 import fileinput
 import functools
-import sys
+from collections import deque
 from enum import Enum
 
 type Point = tuple[int, int]
@@ -21,24 +20,24 @@ class Floor:
         self.q: deque = deque()
 
     @functools.cache
-    def beam(self, p: Point, dir: Direction) -> None:
+    def beam(self, p: Point, direction: Direction) -> None:
         r, c = p
         if r < 0 or r >= len(self.grid) or c < 0 or c >= len(self.grid[0]):
             return
 
         self.energized.add(p)
 
-        match dir:
+        match direction:
             case Direction.NORTH:
                 match self.grid[r][c]:
                     case ".":
-                        self.q.append(((r - 1, c), dir))
+                        self.q.append(((r - 1, c), direction))
                     case "/":
                         self.q.append(((r, c + 1), Direction.EAST))
                     case "\\":
                         self.q.append(((r, c - 1), Direction.WEST))
                     case "|":
-                        self.q.append(((r - 1, c), dir))
+                        self.q.append(((r - 1, c), direction))
                     case "-":
                         self.q.append(((r, c - 1), Direction.WEST))
                         self.q.append(((r, c + 1), Direction.EAST))
@@ -47,13 +46,13 @@ class Floor:
             case Direction.SOUTH:
                 match self.grid[r][c]:
                     case ".":
-                        self.q.append(((r + 1, c), dir))
+                        self.q.append(((r + 1, c), direction))
                     case "/":
                         self.q.append(((r, c - 1), Direction.WEST))
                     case "\\":
                         self.q.append(((r, c + 1), Direction.EAST))
                     case "|":
-                        self.q.append(((r + 1, c), dir))
+                        self.q.append(((r + 1, c), direction))
                     case "-":
                         self.q.append(((r, c - 1), Direction.WEST))
                         self.q.append(((r, c + 1), Direction.EAST))
@@ -62,7 +61,7 @@ class Floor:
             case Direction.WEST:
                 match self.grid[r][c]:
                     case ".":
-                        self.q.append(((r, c - 1), dir))
+                        self.q.append(((r, c - 1), direction))
                     case "/":
                         self.q.append(((r + 1, c), Direction.SOUTH))
                     case "\\":
@@ -71,13 +70,13 @@ class Floor:
                         self.q.append(((r - 1, c), Direction.NORTH))
                         self.q.append(((r + 1, c), Direction.SOUTH))
                     case "-":
-                        self.q.append(((r, c - 1), dir))
+                        self.q.append(((r, c - 1), direction))
                     case _:
                         assert False
             case Direction.EAST:
                 match self.grid[r][c]:
                     case ".":
-                        self.q.append(((r, c + 1), dir))
+                        self.q.append(((r, c + 1), direction))
                     case "/":
                         self.q.append(((r - 1, c), Direction.NORTH))
                     case "\\":
@@ -86,14 +85,14 @@ class Floor:
                         self.q.append(((r - 1, c), Direction.NORTH))
                         self.q.append(((r + 1, c), Direction.SOUTH))
                     case "-":
-                        self.q.append(((r, c + 1), dir))
+                        self.q.append(((r, c + 1), direction))
                     case _:
                         assert False
             case _:
                 assert False
 
-    def all_the_beams(self, p: Point, dir: Direction):
-        self.q.append((p, dir))
+    def all_the_beams(self, p: Point, direction: Direction):
+        self.q.append((p, direction))
 
         while self.q:
             b = self.q.pop()
